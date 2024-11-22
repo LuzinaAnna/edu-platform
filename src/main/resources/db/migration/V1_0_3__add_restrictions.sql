@@ -1,0 +1,2 @@
+ALTER TABLE teacher ADD COLUMN job_title_id INT NOT NULL;
+ALTER TABLE teacher ADD CONSTRAINT job_title_teacher_fk FOREIGN KEY (job_title_id) REFERENCES job_title(id) ON DELETE CASCADE ON UPDATE CASCADE;
