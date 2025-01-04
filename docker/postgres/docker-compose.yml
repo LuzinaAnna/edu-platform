@@ -1,9 +1,7 @@
-
-
 services:
   postgres:
     container_name: postgres
-    image: postgres:16.1
+    image: postgres:latest
     environment:
       POSTGRES_DB: "education"
       POSTGRES_USER: "admin"

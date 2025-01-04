@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Edu Platform</string>
+    <string name="startup_logo_description">Serves standard logo which drawing on startup app</string>
+    <string name="forgot_password_link">Forgot password?</string>
+    <string name="register_link" >Register</string>
+    <string name="authenticate_button_lbl">Login</string>
+    <string name="password_placeholder">Password</string>
+    <string name="username_placeholder">Username</string>
+    <string name="greeting">Be aware about all</string>
+    <string name="failed_auth_server_error">Failed to authenticate. Sorry, it\'s server error!</string>
+    <string name="failed_auth_invalid_creds">Failed to authetnicate. Invalid credentials!</string>
+</resources>
