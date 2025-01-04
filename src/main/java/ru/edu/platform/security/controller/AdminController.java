@@ -17,7 +17,7 @@ public class AdminController {
     String test() {
         String s = Optional.ofNullable(SecurityContextHolder.getContext())
                 .map(SecurityContext::getAuthentication)
-                .map(Authentication::getPrincipal)
+                .map(Authentication::getName)
                 .map(Object::toString)
                 .orElseGet(() -> "null");
         return String.format("you are %s", s);

@@ -2,8 +2,10 @@ package ru.geo.educationplatform.view.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -11,6 +13,8 @@ import kotlinx.coroutines.launch
 import ru.geo.educationplatform.domain.auth.AuthenticationManager
 import ru.geo.educationplatform.domain.auth.repository.container.AuthenticationStatus
 import ru.geo.educationplatform.domain.auth.repository.container.Credentials
+import ru.geo.educationplatform.view.components.Authentication
+import ru.geo.educationplatform.view.components.Greeting
 import ru.geo.educationplatform.view.viewmodel.state.CredentialsUiState
 import javax.inject.Inject
 
@@ -20,14 +24,17 @@ class AuthenticationViewModel @Inject constructor(
 ): ViewModel() {
     private val _credentialsUiState = MutableStateFlow(CredentialsUiState("", ""))
     private val _authenticationResult = MutableStateFlow(AuthenticationStatus.DUMMY)
+    private val _isAuthenticated = MutableStateFlow(false)
+
     val credentialsUiState = _credentialsUiState.asStateFlow()
     val authenticationStatus = _authenticationResult.asStateFlow()
+    val isAuthenticated = _isAuthenticated.asStateFlow()
 
-    fun isAuthenticated(): Boolean {
-        return authenticationManager.isAuthenticated()
+    fun setIsAuthenticated(isAuthenticated: Boolean) {
+        _isAuthenticated.value = isAuthenticated
     }
 
-    fun authenticate() {
+    fun authenticate(onSuccessCallback: Runnable) {
         viewModelScope.launch(Dispatchers.IO) {
             val state = _credentialsUiState.value
             val credentials = Credentials(
@@ -35,7 +42,14 @@ class AuthenticationViewModel @Inject constructor(
                 state.password
             )
             _authenticationResult.update { _ -> AuthenticationStatus.PROCESSING }
-            _authenticationResult.update { _ -> authenticationManager.auth(credentials) } 
+            val status = authenticationManager.auth(credentials)
+            if (status == AuthenticationStatus.SUCCESSFUL) {
+                launch(Dispatchers.Main) {
+                    onSuccessCallback.run()
+                }
+            } else {
+                _authenticationResult.update { _ -> status}
+            }
         }
     }
 

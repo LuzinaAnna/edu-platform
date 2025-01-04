@@ -9,13 +9,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
@@ -27,7 +25,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -59,105 +56,110 @@ fun AuthenticationComponent(
     navController: NavController,
     viewModel: AuthenticationViewModel = hiltViewModel()
 ) {
-    val isAuthenticated = viewModel.isAuthenticated()
-    LaunchedEffect (isAuthenticated) {
-        if (isAuthenticated) navController.navigate(Guardian)
-    }
-
-    var showPassword by remember { mutableStateOf(false) }
     val credentialsState by viewModel.credentialsUiState.collectAsState()
     val authenticationStatus by viewModel.authenticationStatus.collectAsState()
+
+    var showPassword by remember { mutableStateOf(false) }
+
     val ctx = LocalContext.current
 
-    when(authenticationStatus) {
-        AuthenticationStatus.PROCESSING -> {
-            CircularProgressIndicator(
-                modifier = Modifier.width(64.dp),
-                color = MaterialTheme.colorScheme.secondary,
-                trackColor = MaterialTheme.colorScheme.surfaceVariant,
-            )
-        }
-        AuthenticationStatus.SUCCESSFUL -> {
-            navController.navigate(Guardian)
-        }
-        AuthenticationStatus.SERVER_ERROR -> {
-            Toast.makeText(
-                ctx,
-                R.string.failed_auth_server_error,
-                Toast.LENGTH_LONG
-            ).show()
-            viewModel.restartAuthentication()
-        }
-        AuthenticationStatus.INVALID_CREDENTIALS -> {
-            viewModel.reset()
-            Toast.makeText(
-                ctx,
-                R.string.failed_auth_invalid_creds,
-                Toast.LENGTH_LONG
-            ).show()
-            viewModel.restartAuthentication()
-        }
-        else -> {
-            Surface(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.White)
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxSize()
-                        .padding(bottom = 350.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .width(250.dp)
-                            .verticalScroll(rememberScrollState()),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = stringResource(R.string.app_name),
-                            style = MaterialTheme.typography.headlineLarge
-                        )
-                        Spacer(modifier = Modifier.padding(5.dp))
-                        OutlinedTextField(
-                            modifier = Modifier.fillMaxWidth(),
-                            value = credentialsState.username,
-                            placeholder = { Text(stringResource(R.string.username_placeholder)) },
-                            onValueChange = { viewModel.setUsername(it) },
-                            singleLine = true,
-                        )
-                        Spacer(modifier = Modifier.padding(5.dp))
-                        OutlinedTextField(
-                            modifier = Modifier.fillMaxWidth(),
-                            value = credentialsState.password,
-                            placeholder = { Text(stringResource(R.string.password_placeholder)) },
-                            onValueChange = {viewModel.setPassword(it) },
-                            singleLine = true,
-                            visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                            trailingIcon = {
-                                val image = if (showPassword)
-                                    Icons.Filled.Visibility
-                                else Icons.Filled.VisibilityOff
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            when (authenticationStatus) {
+                AuthenticationStatus.PROCESSING -> {
+                    CircularProgressIndicator(
+                        modifier = Modifier.width(64.dp),
+                        color = MaterialTheme.colorScheme.secondary,
+                        trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                    )
+                }
 
-                                val description = if (showPassword) "Hide password" else "Show password"
-                                IconButton(onClick = { showPassword = !showPassword }) {
-                                    Icon(imageVector = image, description)
-                                }
-                            }
-                        )
-                        Spacer(modifier = Modifier.padding(5.dp))
-                        Button(
-                            onClick = {
-                                viewModel.authenticate()
-                            },
-                            modifier = Modifier.fillMaxWidth(),
+                AuthenticationStatus.SERVER_ERROR -> {
+                    Toast.makeText(
+                        ctx,
+                        R.string.failed_auth_server_error,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    viewModel.restartAuthentication()
+                }
+
+                AuthenticationStatus.INVALID_CREDENTIALS -> {
+                    viewModel.reset()
+                    Toast.makeText(
+                        ctx,
+                        R.string.failed_auth_invalid_creds,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    viewModel.restartAuthentication()
+                }
+
+                else -> {
+                    Box (
+                        modifier = Modifier
+                            .padding(bottom = 350.dp),
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .width(250.dp)
+                                .verticalScroll(rememberScrollState()),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
                         ) {
                             Text(
-                                text = stringResource(R.string.authenticate_button_lbl),
-                                style = MaterialTheme.typography.bodyLarge
+                                text = stringResource(R.string.app_name),
+                                style = MaterialTheme.typography.headlineLarge
                             )
+                            Spacer(modifier = Modifier.padding(5.dp))
+                            OutlinedTextField(
+                                modifier = Modifier.fillMaxWidth(),
+                                value = credentialsState.username,
+                                placeholder = { Text(stringResource(R.string.username_placeholder)) },
+                                onValueChange = { viewModel.setUsername(it) },
+                                singleLine = true,
+                            )
+                            Spacer(modifier = Modifier.padding(5.dp))
+                            OutlinedTextField(
+                                modifier = Modifier.fillMaxWidth(),
+                                value = credentialsState.password,
+                                placeholder = { Text(stringResource(R.string.password_placeholder)) },
+                                onValueChange = { viewModel.setPassword(it) },
+                                singleLine = true,
+                                visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                                trailingIcon = {
+                                    val image = if (showPassword)
+                                        Icons.Filled.Visibility
+                                    else Icons.Filled.VisibilityOff
+
+                                    val description =
+                                        if (showPassword) "Hide password" else "Show password"
+                                    IconButton(onClick = { showPassword = !showPassword }) {
+                                        Icon(imageVector = image, description)
+                                    }
+                                }
+                            )
+                            Spacer(modifier = Modifier.padding(5.dp))
+                            Button(
+                                onClick = {
+                                    viewModel.authenticate {
+                                        viewModel.setIsAuthenticated(true)
+                                        navController.navigate(Greeting)
+                                    }
+                                },
+                                modifier = Modifier.fillMaxWidth(),
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.authenticate_button_lbl),
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+                            }
                         }
                     }
                 }
