@@ -1,7 +1,7 @@
 package ru.edu.platform.security.repository.impl;
 
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 import ru.edu.platform.security.domain.SecuritySubject;
 import ru.edu.platform.security.repository.SecuritySubjectRepository;
@@ -9,6 +9,7 @@ import ru.edu.platform.util.transaction.Isolation;
 import ru.edu.platform.util.transaction.Propagation;
 import ru.edu.platform.util.transaction.TransactionUtils;
 
+import java.util.Map;
 import java.util.Optional;
 
 import static ru.edu.platform.util.transaction.Configurers.*;
@@ -62,10 +63,10 @@ public class SecuritySubjectRepositoryImpl implements SecuritySubjectRepository 
         ss.setEnabled(isEnabled);
         return ss;
     };
-    private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate jdbcTemplate;
     private final PlatformTransactionManager transactionManager;
 
-    public SecuritySubjectRepositoryImpl(JdbcTemplate jdbcTemplate, PlatformTransactionManager transactionManager) {
+    public SecuritySubjectRepositoryImpl(NamedParameterJdbcTemplate jdbcTemplate, PlatformTransactionManager transactionManager) {
         this.jdbcTemplate = jdbcTemplate;
         this.transactionManager = transactionManager;
     }
@@ -80,7 +81,11 @@ public class SecuritySubjectRepositoryImpl implements SecuritySubjectRepository 
                         withTransactionManager(transactionManager)
                 ),
                 (u) -> {
-                    SecuritySubject securitySubject = jdbcTemplate.queryForObject(SQL_FIND_ONE_BY_ID, ROW_MAPPER, id);
+                    SecuritySubject securitySubject = jdbcTemplate.queryForObject(
+                      SQL_FIND_ONE_BY_ID,
+                      Map.of("id", id),
+                      ROW_MAPPER
+                    );
                     return Optional.ofNullable(securitySubject);
                 }
         );
@@ -96,7 +101,11 @@ public class SecuritySubjectRepositoryImpl implements SecuritySubjectRepository 
                         withTransactionManager(transactionManager)
                 ),
                 (u) -> {
-                    SecuritySubject securitySubject = jdbcTemplate.queryForObject(SQL_FIND_ONE_BY_NAME, ROW_MAPPER, name);
+                    SecuritySubject securitySubject = jdbcTemplate.queryForObject(
+                      SQL_FIND_ONE_BY_NAME,
+                      Map.of("name", name),
+                      ROW_MAPPER
+                    );
                     return Optional.ofNullable(securitySubject);
                 }
         );

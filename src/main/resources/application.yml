@@ -19,5 +19,5 @@ platform:
             - ADMIN
     jwt:
       rsa:
-        private-key: file:/home/semenov/source/edu-platform/util/private.key
-        public-key: file:/home/semenov/source/edu-platform/util/public.key
+        private-key: file:/home/admin/src/java/edu-platform/util/private.key
+        public-key: file:/home/admin/src/java/edu-platform/util/public.key
