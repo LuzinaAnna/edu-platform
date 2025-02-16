@@ -30,7 +30,7 @@ CREATE TABLE subject_to_student
     student_id bigint NOT NULL,
     subject_id bigint NOT NULL,
     constraint subject_to_student_student_id_fk foreign key (student_id) references student (id),
-    constraint subject_to_student_subject_id_fk foreign key (student_id) references security_subject (id)
+    constraint subject_to_student_subject_id_fk foreign key (subject_id) references security_subject (id)
 );
 
 CREATE SEQUENCE security_subject_id_seq;
