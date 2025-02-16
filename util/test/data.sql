@@ -87,12 +87,12 @@ VALUES (1, 1, 1, 1, 1, 1, 1),
 
 
 -- Insert test data for schedule
-INSERT INTO schedule (id, start_of_counting, subject_taught_id, period_type_id, classroom_id)
-VALUES (1, '13:20', 1, 1, 1),
-       (2, '11:30', 2, 2, 2),
-       (3, '15:00', 1, 1, 1),
-       (4, '13:20', 2, 2, 2),
-       (5, '15:00', 1, 1, 1);
+INSERT INTO schedule (id, start_of_counting, subject_taught_id, period_type_id, classroom_id, week_day_number)
+VALUES (1, '13:20', 1, 1, 1, 0),
+       (2, '11:30', 2, 2, 2, 0),
+       (3, '15:00', 1, 1, 1, 0),
+       (4, '13:20', 2, 2, 2, 0),
+       (5, '15:00', 1, 1, 1, 0);
 
 -- Create credentials for semenov.ao
 INSERT INTO security_subject(id, username, pwd, email)
