@@ -85,6 +85,14 @@ CREATE TABLE schedule
 (
     id                BIGINT PRIMARY KEY,
     start_of_counting TIME   NOT NULL,
+--     0 - monday
+--     1 - tuesday
+--     2 - wensday
+--     3 - thursday
+--     4 - friday
+--     5 - saturday
+--     6 - sunday
+    week_day_number   INT    NOT NULL,
     subject_taught_id BIGINT NOT NULL,
     CONSTRAINT subject_taught_schedule_fk FOREIGN KEY (subject_taught_id) REFERENCES subject_taught (id) ON DELETE CASCADE ON UPDATE CASCADE,
     period_type_id    BIGINT NOT NULL,
