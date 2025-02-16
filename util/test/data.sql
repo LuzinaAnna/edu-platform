@@ -95,16 +95,19 @@ VALUES (1, '13:20', 1, 1, 1, 0),
        (5, '15:00', 1, 1, 1, 0);
 
 -- Create credentials for semenov.ao
+
+-- create security subject
 INSERT INTO security_subject(id, username, pwd, email)
 values (nextval('security_subject_id_seq'),
         'semenov.ao',
         '$2a$12$N6K9TlNxhW.NNPjrjowi5e6UmupL.lv0u3u7mJ41xEoyKSpi2RI.K', -- bcrypted value 'Root1234?'
         'semenov.andrey.2003@gmail.com');
-
+-- add authority
 INSERT INTO subject_grant(subject_id, grant_id)
 VALUES ((select id from security_subject where username = 'semenov.ao'),
         (select id from security_grant where name = 'STUDENT'));
 
+-- register security subject as student
 INSERT INTO subject_to_student(student_id, subject_id)
 values (2, (select id from security_subject where username = 'semenov.ao'));
 
