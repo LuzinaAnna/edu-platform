@@ -5,14 +5,14 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 import ru.edu.platform.security.domain.SecuritySubject;
 import ru.edu.platform.security.repository.SecuritySubjectRepository;
-import ru.edu.platform.util.transaction.Isolation;
-import ru.edu.platform.util.transaction.Propagation;
-import ru.edu.platform.util.transaction.TransactionUtils;
+import ru.edu.platform.common.util.transaction.Isolation;
+import ru.edu.platform.common.util.transaction.Propagation;
+import ru.edu.platform.common.util.transaction.TransactionUtils;
 
 import java.util.Map;
 import java.util.Optional;
 
-import static ru.edu.platform.util.transaction.Configurers.*;
+import static ru.edu.platform.common.util.transaction.Configurers.*;
 
 public class SecuritySubjectRepositoryImpl implements SecuritySubjectRepository {
 

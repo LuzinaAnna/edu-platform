@@ -14,9 +14,6 @@ class AuthenticationManager @Inject constructor(
     private val jwtStoreRepository: JwtStoreRepository,
     private val authenticationApi: AuthenticationApi
 ) {
-    fun isAuthenticated(): Boolean {
-        return jwtStoreRepository.get() != null
-    }
 
     suspend fun auth(credentials: Credentials): AuthenticationStatus {
         try {

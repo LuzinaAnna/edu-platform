@@ -82,6 +82,8 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.hilt.navigation.compose)
+    // https://mvnrepository.com/artifact/org.webrtc/google-webrtc
+    implementation("org.webrtc:google-webrtc:1.0.32006")
 }
 
 kapt {

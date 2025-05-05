@@ -1,21 +1,19 @@
 package ru.edu.platform.security.repository.impl;
 
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 import ru.edu.platform.security.domain.SecurityGrant;
 import ru.edu.platform.security.repository.SecurityGrantRepository;
-import ru.edu.platform.util.transaction.Isolation;
-import ru.edu.platform.util.transaction.Propagation;
-import ru.edu.platform.util.transaction.TransactionTemplateConfigurer;
-import ru.edu.platform.util.transaction.TransactionUtils;
+import ru.edu.platform.common.util.transaction.Isolation;
+import ru.edu.platform.common.util.transaction.Propagation;
+import ru.edu.platform.common.util.transaction.TransactionUtils;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static ru.edu.platform.util.transaction.Configurers.*;
+import static ru.edu.platform.common.util.transaction.Configurers.*;
 
 public class SecurityGrantRepositoryImpl implements SecurityGrantRepository {
 

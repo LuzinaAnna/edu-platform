@@ -2,7 +2,6 @@ package ru.geo.educationplatform.view.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Runnable
@@ -13,8 +12,6 @@ import kotlinx.coroutines.launch
 import ru.geo.educationplatform.domain.auth.AuthenticationManager
 import ru.geo.educationplatform.domain.auth.repository.container.AuthenticationStatus
 import ru.geo.educationplatform.domain.auth.repository.container.Credentials
-import ru.geo.educationplatform.view.components.Authentication
-import ru.geo.educationplatform.view.components.Greeting
 import ru.geo.educationplatform.view.viewmodel.state.CredentialsUiState
 import javax.inject.Inject
 

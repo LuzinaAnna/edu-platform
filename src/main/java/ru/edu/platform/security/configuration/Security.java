@@ -29,7 +29,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import ru.edu.platform.configuration.PlatformProperties;
+import ru.edu.platform.common.configuration.PlatformProperties;
 import ru.edu.platform.security.domain.SecurityGrant;
 import ru.edu.platform.security.domain.SecuritySubject;
 import ru.edu.platform.security.domain.adapter.GrantToAuthorityAdapter;
@@ -40,7 +40,7 @@ import ru.edu.platform.security.service.CompositeUserDetailsService;
 import ru.edu.platform.security.service.JwtTokenService;
 import ru.edu.platform.security.service.JwtTokenServiceImpl;
 import ru.edu.platform.security.service.SecuritySubjectDetailsService;
-import ru.edu.platform.util.JwtAuthoritiesConverter;
+import ru.edu.platform.security.internal.jwt.JwtAuthoritiesConverter;
 
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;

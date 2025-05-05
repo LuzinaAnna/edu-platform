@@ -1,4 +1,4 @@
-package ru.edu.platform.configuration;
+package ru.edu.platform.common.configuration;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

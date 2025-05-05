@@ -40,7 +40,7 @@ fun GreetingComponent(
         } else {
             Text(
                 text = greeting,
-                style = MaterialTheme.typography.bodyMedium,
+                style = Mate    rialTheme.typography.bodyMedium,
             )
         }
     }

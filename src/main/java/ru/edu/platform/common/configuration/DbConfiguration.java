@@ -1,4 +1,4 @@
-package ru.edu.platform.configuration;
+package ru.edu.platform.common.configuration;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -37,7 +37,7 @@ public class DbConfiguration {
 
 
     @Bean
-    NamedParameterJdbcTemplate namedJdbcTemplate    (DataSource dataSource) {
+    NamedParameterJdbcTemplate namedJdbcTemplate(DataSource dataSource) {
         return new NamedParameterJdbcTemplate(dataSource);
     }
 }
