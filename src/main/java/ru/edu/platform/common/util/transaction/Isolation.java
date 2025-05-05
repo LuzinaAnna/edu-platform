@@ -1,4 +1,4 @@
-package ru.edu.platform.util.transaction;
+package ru.edu.platform.common.util.transaction;
 
 import org.springframework.transaction.TransactionDefinition;
 

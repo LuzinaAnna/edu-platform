@@ -96,7 +96,7 @@ fun AuthenticationComponent(
                         ctx,
                         R.string.failed_auth_invalid_creds,
                         Toast.LENGTH_LONG
-                    ).show()
+                     ).show()
                     viewModel.restartAuthentication()
                 }
 
@@ -128,7 +128,7 @@ fun AuthenticationComponent(
                             OutlinedTextField(
                                 modifier = Modifier.fillMaxWidth(),
                                 value = credentialsState.password,
-                                placeholder = { Text(stringResource(R.string.password_placeholder)) },
+                                    placeholder = { Text(stringResource(R.string.password_placeholder)) },
                                 onValueChange = { viewModel.setPassword(it) },
                                 singleLine = true,
                                 visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),

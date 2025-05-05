@@ -1,4 +1,4 @@
-package ru.edu.platform.util;
+package ru.edu.platform.security.internal.jwt;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.convert.converter.Converter;

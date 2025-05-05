@@ -1,4 +1,4 @@
-package ru.edu.platform.util;
+package ru.edu.platform.common.util;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;

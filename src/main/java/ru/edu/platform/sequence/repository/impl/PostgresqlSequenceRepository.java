@@ -1,15 +1,12 @@
-package ru.edu.platform.repository.impl;
+package ru.edu.platform.sequence.repository.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.relational.core.dialect.Dialect;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
-import ru.edu.platform.repository.SequenceRepository;
+import ru.edu.platform.sequence.repository.SequenceRepository;
 
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 public class PostgresqlSequenceRepository implements SequenceRepository {

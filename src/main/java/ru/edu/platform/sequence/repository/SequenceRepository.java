@@ -1,4 +1,4 @@
-package ru.edu.platform.repository;
+package ru.edu.platform.sequence.repository;
 
 import java.util.List;
 

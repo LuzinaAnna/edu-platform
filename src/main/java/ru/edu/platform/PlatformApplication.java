@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @SpringBootApplication
 @EnableConfigurationProperties
-@ConfigurationPropertiesScan(basePackages = "ru.edu.platform.configuration")
+@ConfigurationPropertiesScan(basePackages = "ru.edu.platform.common.configuration")
 public class PlatformApplication {
 
 	public static void main(String[] args) {

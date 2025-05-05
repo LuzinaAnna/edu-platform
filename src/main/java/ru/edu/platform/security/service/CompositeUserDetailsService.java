@@ -3,7 +3,7 @@ package ru.edu.platform.security.service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import ru.edu.platform.util.CompositeRuntimeException;
+import ru.edu.platform.common.util.CompositeRuntimeException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
